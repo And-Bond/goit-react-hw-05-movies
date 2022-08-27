@@ -4,12 +4,24 @@ const instance = axios.create({
     baseURL: 'https://api.themoviedb.org/3/trending/movie/day'
 })
 
-const fetchApi = async(settings) => {
-    const response = await instance.get(`https://api.themoviedb.org/3/${settings}`,{
+const fetchApi = async(settings, params) => {
+    let response
+    if(!params){
+    response = await instance.get(`https://api.themoviedb.org/3/${settings}`,{
+            params:{
+                api_key: '2e46478410a3b7ef74a24e2b089ec9d3',
+                
+            }
+        })
+    }
+    if(params){
+     response = await instance.get(`https://api.themoviedb.org/3/${settings}`,{
         params:{
             api_key: '2e46478410a3b7ef74a24e2b089ec9d3',
+            query: params
         }
     })
+    }
     console.log(response)
     return response.data
 }

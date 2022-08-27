@@ -1,10 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, Outlet, useParams } from 'react-router-dom';
 import fetchApi from 'components/Api';
-import { Route, Routes } from 'react-router-dom';
-import Cast from 'components/organism/Cast/Cast';
-import Reviews from 'components/organism/Reviews/Reviews';
 const MovieDetails = () => {
   const { movieId } = useParams();
   const [details, setDetails] = useState({});
@@ -13,7 +10,8 @@ const MovieDetails = () => {
       try {
         const result = await fetchApi(`movie/${movieId}`);
         setDetails(result);
-        console.log(result);
+          console.log(result)
+
       } catch (error) {
         console.log(error);
       }
@@ -26,7 +24,7 @@ const MovieDetails = () => {
         <Link to={'/'}>Go back</Link>
       </button>
       <div>
-        <img src="" alt="" />
+        <img src={details?.backdrop_path?.split('').filter((e) => !e.includes('/')).join('')} alt={details?.title} />
         <h2>{details?.title}</h2>
         <p>User Score: {details?.vote_average * 10}</p>
         <h3>Overview</h3>
@@ -38,12 +36,13 @@ const MovieDetails = () => {
       </div>
       <div>
         <ul>Additional information</ul>
-        <li>
+        <li key={'1'}>
           <Link to={`/movies/${movieId}/cast`}>Cast</Link>
         </li>
-        <li>
+        <li key={'2'}>
           <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
         </li>
+        <Outlet />
       </div>
     </>
   );
@@ -51,10 +50,6 @@ const MovieDetails = () => {
   return (
     <div>
       {MovieDetailsBasicRender}
-      <Routes>
-        <Route path={`/movies/${movieId}/cast`} element={<Cast />} />
-        <Route path={`/movies/${movieId}/reviews`} element={<Reviews />} />
-      </Routes>
     </div>
   );
 };

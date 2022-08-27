@@ -3,19 +3,19 @@ import { Link } from 'react-router-dom';
 import React from 'react';
 import fetchApi from 'components/Api';
 const Home = () => {
-  const [elements, setElements] = useState([]);
+  const [movies, setMovies] = useState([]);
   useEffect(() => {
     const fetchFun = async () => {
       try {
         const result = await fetchApi('trending/movie/day');
-        setElements(result.results);
+        setMovies(result.results);
       } catch (error) {
         console.log(error);
       }
     };
     fetchFun();
   }, []);
-  const render = elements?.map(element => {
+  const render = movies?.map(element => {
     return (
       <li key={element.id}>
         <Link to={`/movies/${element.id}`}>
