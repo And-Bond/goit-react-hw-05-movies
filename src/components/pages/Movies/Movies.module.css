@@ -1,0 +1,16 @@
+.form{
+    display: flex;
+    flex-direction: row;
+    padding: 5px 10px;
+    margin: 10px 20px;
+}
+.input{
+    margin-right: 5px;
+    padding: 2px;
+    outline: none;
+}
+.button{
+    background-color: #fff;
+    border: 1px solid black;
+    cursor: pointer;
+}

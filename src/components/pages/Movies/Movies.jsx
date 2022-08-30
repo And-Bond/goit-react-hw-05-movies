@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import fetchApi from 'components/Api';
 import Loader from "components/molecules/Loader/Loader";
+import styles from './Movies.module.css'
+
 
 const Movies = () => {
     const [movies,setMovies] = useState([])
@@ -44,8 +46,8 @@ const Movies = () => {
     },[submittedState])
     const render = movies?.map(element => {
         return (
-          <li key={element.id}>
-            <Link to={`/movies/${element.id}`}>
+          <li  key={element.id}>
+            <Link className={styles.link} to={`/movies/${element.id}`}>
             {element.title}
             </Link>
           </li>
@@ -54,9 +56,9 @@ const Movies = () => {
     return (
     <div>
         
-        <form action="submit" onSubmit={onSubmit}>
-        <input type="text" value={inputValue} onChange={setInputValueFun}/>
-        <button type="submit">Search</button>
+        <form className={styles.form} action="submit" onSubmit={onSubmit}>
+        <input className={styles.input} type="text" value={inputValue} onChange={setInputValueFun}/>
+        <button className={styles.button} type="submit">Search</button>
         </form>
         {submittedState.loading && <Loader />}
         {submittedState.submitted && <ul>{render}</ul>}

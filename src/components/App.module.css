@@ -1,0 +1,22 @@
+a{
+    text-decoration: none;
+    color: black;
+}
+a:hover{
+    color: blue;
+}
+.nav{
+    display: flex;
+    height: 50px;
+    padding: 5px 20px;
+    flex-direction: row;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    align-items: center;
+}
+.nav__link{
+    display: inline;
+    margin-left: 20px;
+}
+.nav__link_active{
+    color: red;
+}
