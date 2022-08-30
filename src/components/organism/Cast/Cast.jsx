@@ -2,6 +2,7 @@ import React from 'react';
 import fetchApi from 'components/Api';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import styles from '../Outlet.module.css'
 
 const Cast = () => {
   const { movieId } = useParams();
@@ -21,10 +22,10 @@ const Cast = () => {
 
 
   return (
-    <ul>
+    <ul className={styles.list}>
       {cast?.map((cast) => {
         return (
-          <li key={cast.id}>
+          <li className={styles.list__item} key={cast.id}>
             <img src={cast.profile_path?.split('').filter((e) => !e.includes('/')).join('')} alt={cast.name} />
             <p>{cast.name}</p>
             <p>{cast.character}</p>

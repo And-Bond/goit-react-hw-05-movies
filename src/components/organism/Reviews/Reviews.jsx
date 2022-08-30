@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import fetchApi from 'components/Api';
+import styles from '../Outlet.module.css'
 
 const Reviews = () => {
   const { movieId } = useParams();
@@ -23,19 +24,19 @@ const Reviews = () => {
     reviews.length === 0 ? (
       <p>There is no reviews yet</p>
     ) : (
-      <div>
+      <div className={styles.list__item}>
         {reviews.map((review) => {
           return (
             <>
               <h3>{`Author ${review.author}`}</h3>
-              <p>{review.content}</p>
+              <p className={styles.margin}>{review.content}</p>
             </>
           );
         })}
       </div>
     );
   console.log(reviews);
-  return <div>{render}</div>;
+  return <div className={styles.list}>{render}</div>;
 };
 
 export default Reviews;

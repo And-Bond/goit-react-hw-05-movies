@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import fetchApi from 'components/Api';
 import Loader from "components/molecules/Loader/Loader";
@@ -14,6 +14,10 @@ const Movies = () => {
         submitted: false,
         query: ''
     })
+    const [error, setError] = useState({
+      hasError: false,
+      errorMsg: ''
+    })
     const setInputValueFun = (e) => {
         setInputValue(e.target.value)
     }
@@ -25,13 +29,26 @@ const Movies = () => {
             }
         })
     }
+    const firstRender = useRef('true')
     useEffect(() => {
         const fetchFun = async () => {
             try {
-            const query = submittedState.query
+              if(firstRender.current){
+                firstRender.current = false
+                return
+              }
+              const query = submittedState.query
               const result = await fetchApi('search/movie', query);
               const resultArray = result.results
+              if(resultArray.length === 0 && !firstRender.current){
+                setSubmittedValue((prevState) => {
+                  return {...prevState, loading: false}
+                })
+                setError({hasError: true, errorMsg: 'No matches found'})
+                return
+              }
               setMovies(resultArray);
+              setError({hasError: false, errorMsg: ''})
               if(submittedState.loading){
                 setSubmittedValue((prevState) => {
                     return {...prevState, loading: false} 
@@ -62,6 +79,7 @@ const Movies = () => {
         </form>
         {submittedState.loading && <Loader />}
         {submittedState.submitted && <ul>{render}</ul>}
+        {error.hasError && <h4>{error.errorMsg}</h4>}
         
     </div>)
 }
