@@ -13,8 +13,7 @@ const MovieDetails = ({hesh, querySaveFun}) => {
       try {
         const result = await fetchApi(`movie/${movieId}`);
         setDetails(result);
-          console.log(result)
-
+        console.log(result);
       } catch (error) {
         console.log(error);
       }
@@ -45,24 +44,23 @@ const MovieDetails = ({hesh, querySaveFun}) => {
         })}
         </div>
       </div>
-      <div>
-        <ul>Additional information</ul>
-        <li key={'1'}>
-          <Link to={`/movies/${movieId}/cast`}>Cast</Link>
-        </li>
-        <li key={'2'}>
-          <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
-        </li>
+      <div className={styles.bottom__section}>
+        <p>Additional information</p>
+        <ul >
+          <li key={'1'}>
+            <Link to={`/movies/${movieId}/cast`}>Cast</Link>
+          </li>
+          <li key={'2'}>
+            <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
+          </li>
+        </ul>
+        </div>
         <Outlet />
-      </div>
+      
     </>
   );
 
-  return (
-    <div>
-      {MovieDetailsBasicRender}
-    </div>
-  );
+  return <div>{MovieDetailsBasicRender}</div>;
 };
 
 MovieDetails.propTypes = {

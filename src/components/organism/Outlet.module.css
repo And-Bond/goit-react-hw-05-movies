@@ -1,0 +1,15 @@
+.list{
+   border-top: 1px solid black;
+   padding: 10px 20px;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   height: max-content;
+
+}
+.list__item{
+    margin: 10px 0;
+}
+.margin{
+    margin: 10px 0;
+}

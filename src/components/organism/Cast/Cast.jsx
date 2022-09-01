@@ -3,20 +3,16 @@ import fetchApi from 'components/Api';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Loader from 'components/molecules/Loader/Loader';
-import { useRef } from 'react';
+import styles from '../Outlet.module.css'
 
 const Cast = () => {
   const { movieId } = useParams();
   const [cast, setCast] = useState([]);
   const [loading,setLoading] = useState(false)
 
-  // const firstRender = useRef(true)
+
   useEffect(() => {
-    // if(firstRender.current){
-    //   firstRender.current = false
-    //   console.log('works')
-    //   return
-    // }
+ 
     console.log('works')
     setLoading(true)
     const fetchCast = async () => {
@@ -34,7 +30,8 @@ const Cast = () => {
   console.log('render') 
   
   return (
-    <ul>
+    
+    <ul className={styles.list}>
       {loading && <Loader></Loader>}
       {cast?.map((cast) => {
         const altImage = cast?.profile_path !== null ? cast.name : 'No image found'

@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import fetchApi from 'components/Api';
 import Loader from "components/molecules/Loader/Loader";
@@ -14,6 +14,10 @@ const Movies = ({onClick, queryProp, queryChange}) => {
         submitted: false,
         query: ''
     })
+    const [error, setError] = useState({
+      hasError: false,
+      errorMsg: ''
+    })
     const setInputValueFun = (e) => {
         setInputValue(e.target.value)
     }
@@ -27,6 +31,7 @@ const Movies = ({onClick, queryProp, queryChange}) => {
             }
         })
     }
+    const firstRender = useRef('true')
     useEffect(() => {
       onClick()
       if(queryProp){
@@ -53,12 +58,23 @@ const Movies = ({onClick, queryProp, queryChange}) => {
       }
         const fetchFun = async () => {
             try {
-              console.log(queryProp)
             const query = submittedState.query
             localStorage.setItem('query', query)
+              if(firstRender.current){
+                firstRender.current = false
+                return
+              }
               const result = await fetchApi('search/movie', query);
               const resultArray = result.results
+              if(resultArray.length === 0 && !firstRender.current){
+                setSubmittedValue((prevState) => {
+                  return {...prevState, loading: false}
+                })
+                setError({hasError: true, errorMsg: 'No matches found'})
+                return
+              }
               setMovies(resultArray);
+              setError({hasError: false, errorMsg: ''})
               if(submittedState.loading){
                 setSubmittedValue((prevState) => {
                     return {...prevState, loading: false} 
@@ -92,6 +108,7 @@ const Movies = ({onClick, queryProp, queryChange}) => {
         </form>
         {submittedState.loading && <Loader />}
         {submittedState.submitted && <ul>{render}</ul>}
+        {error.hasError && <h4>{error.errorMsg}</h4>}
         
     </div>)
 }

@@ -1,3 +1,4 @@
+
 .conteiner{
     display: flex;
     flex-direction: row;
@@ -6,4 +7,56 @@
     display: flex;
     flex-direction: column;
     margin-left: 7px;
+}
+:root{
+    --blackborder: 1px solid black
+}
+h2,h3,p{
+    margin: 0px;
+}
+.button{
+    width: 100px;
+    height: 25px;
+    border-radius: 10%;
+    background-color: #fff;
+    border: var(--blackborder);
+    margin-bottom: 5px;
+    margin-top: 5px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+button:hover{
+    background-color: blue;
+}
+link:hover{
+    color: black;
+}
+a:hover{
+    color: black;
+} 
+.top__section{
+    display: flex;
+    flex-direction: row;
+    border-top: var(--blackborder);
+    border-bottom: var(--blackborder);
+}
+.top__section_flexContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 400px;
+    padding: 5px;
+}
+.bottom__section{
+    padding: 10px 10px;
+    border-bottom: var(--blackborder);
+}
+.genres{
+    display: flex;
+    flex-direction: row;
+    padding-left: 0;
+}
+.genres li{
+    list-style: none;
+    margin-right: 10px;
 }
