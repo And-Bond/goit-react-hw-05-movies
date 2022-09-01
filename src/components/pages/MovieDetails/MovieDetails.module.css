@@ -1,0 +1,9 @@
+.conteiner{
+    display: flex;
+    flex-direction: row;
+}
+.second__conteiner{
+    display: flex;
+    flex-direction: column;
+    margin-left: 7px;
+}

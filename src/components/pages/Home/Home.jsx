@@ -4,6 +4,7 @@ import React from 'react';
 import fetchApi from 'components/Api';
 const Home = () => {
   const [movies, setMovies] = useState([]);
+  localStorage.removeItem('query')
   useEffect(() => {
     const fetchFun = async () => {
       try {
