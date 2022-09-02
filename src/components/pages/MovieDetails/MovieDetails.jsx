@@ -1,13 +1,14 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import fetchApi from 'components/Api';
 import styles from './MovieDetails.module.css'
 import propTypes  from "prop-types";
 
-const MovieDetails = ({hesh, querySaveFun}) => {
+const MovieDetails = ({hesh}) => {
   const { movieId } = useParams();
   const [details, setDetails] = useState({});
+  const location = useLocation()
   useEffect(() => {
     const fetchDetails = async () => {
       try {
@@ -20,16 +21,13 @@ const MovieDetails = ({hesh, querySaveFun}) => {
     };
     fetchDetails();
   }, [movieId]);
-  const onQuerySave = (state) => {
-    querySaveFun( state)
-  }
   const fullImage  =`https://image.tmdb.org/t/p/w500${details?.backdrop_path}`
-
+  const backLink = location.state?.from ?? '/movies'
   const MovieDetailsBasicRender = (
     <>
       <button>
-        {hesh === 'home' &&  <Link onClick={() => onQuerySave(false)} to={`/`}>Go back</Link>}
-        {hesh === 'movies' && <Link onClick={() => onQuerySave(true)} to={`/movies`}>Go back</Link>}
+        {hesh === 'home' &&  <Link to={`/`}>Go back</Link>}
+        {hesh === 'movies' && <Link to={backLink}>Go back</Link>}
       </button>
       <div className={styles.conteiner}>
         <img src={fullImage} alt={details?.title} />

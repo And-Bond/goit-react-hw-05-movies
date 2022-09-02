@@ -22,7 +22,7 @@ const fetchApi = async(settings, params) => {
         }
     })
     }
-    console.log(response)
+    // console.log(response)
     return response.data
 }
 // async function fetchApi() {

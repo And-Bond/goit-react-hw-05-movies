@@ -13,7 +13,6 @@ const Reviews = lazy(() => import("./organism/Reviews/Reviews"))
 
 export const App = () => {
   const [hesh, setHesh] = useState('home')
-  const [querySave, setQuery] = useState(false)
   const navStyles = (e) => {
     if(e.isActive){
       return`${styles.nav__link} ${styles.nav__link_active}`
@@ -24,25 +23,20 @@ export const App = () => {
     const heshed = e.target.textContent.toLowerCase()
     setHesh(heshed)
   }
-  const onHeshFun = () => {
+  const onMoviesIdClick=() => {
     setHesh('movies')
   }
-  const querySaveFun = ( state) => {
-    setQuery(state)
-  }
-  console.log(querySave)
-  console.log(hesh)
   return (
     <>
     <nav className={styles.nav}>
       <NavLink className={navStyles} onClick={onMoviesClick} to='/'>Home</NavLink>
-      <NavLink className={navStyles} onClick={onMoviesClick} to='/movies'>Movies</NavLink>
+      <NavLink className={navStyles} onClick={onMoviesClick} to='/movies?query='>Movies</NavLink>
     </nav>
     <Suspense fallback={<div>Loading...</div>}>
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path='/movies' element={<Movies queryChange={() => querySaveFun(false)} queryProp={querySave} onClick={onHeshFun}/>}/>
-      <Route path='/movies/:movieId' element={<MovieDetails querySaveFun={querySaveFun} hesh={hesh}/>} >
+      <Route path='/movies' element={<Movies onLinkClick={onMoviesIdClick}/>}/>
+      <Route path='/movies/:movieId' element={<MovieDetails hesh={hesh}/>} >
         <Route path="cast" element={<Cast />}/>
         <Route path="reviews" element={<Reviews />}/>
       </Route>
